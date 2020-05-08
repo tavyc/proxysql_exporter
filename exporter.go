@@ -329,14 +329,14 @@ func scrapeMySQLConnectionPool(db *sql.DB, ch chan<- prometheus.Metric) error {
 		scan[i] = new(string)
 	}
 
-	var value float64
-	var valueS, column string
 	for rows.Next() {
 		if err = rows.Scan(scan...); err != nil {
 			return err
 		}
 
 		for i := 3; i < len(columns); i++ {
+			var value float64
+			var valueS, column string
 			valueS = *(scan[i].(*string))
 			column = strings.ToLower(columns[i])
 			switch column {
@@ -348,10 +348,14 @@ func scrapeMySQLConnectionPool(db *sql.DB, ch chan<- prometheus.Metric) error {
 					value = 1
 				case "SHUNNED":
 					value = 2
-				case "OFFLINE_SOFT":
+				case "SHUNNED_REPLICATION_LAG":
 					value = 3
-				case "OFFLINE_HARD":
+				case "OFFLINE_SOFT":
 					value = 4
+				case "OFFLINE_HARD":
+					value = 5
+				default:
+					value = 6
 				}
 			default:
 				// We could use rows.ColumnTypes() when mysql driver supports them:
