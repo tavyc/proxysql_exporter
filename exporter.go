@@ -283,7 +283,7 @@ const mySQLconnectionPoolQuery = "SELECT hostgroup, srv_host, srv_port, * FROM s
 // key - column name in lowercase.
 var mySQLconnectionPoolMetrics = map[string]*metric{
 	"status": {"status", prometheus.GaugeValue,
-		"The status of the backend server (1 - ONLINE, 2 - SHUNNED, 3 - OFFLINE_SOFT, 4 - OFFLINE_HARD)."},
+		"The status of the backend server (1 - ONLINE, 2 - SHUNNED, 3 - SHUNNED_REPLICATION_LAG, 4 - OFFLINE_SOFT, 5 - OFFLINE_HARD)."},
 	"connused": {"conn_used", prometheus.GaugeValue,
 		"How many connections are currently used by ProxySQL for sending queries to the backend server."},
 	"connfree": {"conn_free", prometheus.GaugeValue,
