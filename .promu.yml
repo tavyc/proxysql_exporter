@@ -1,5 +1,5 @@
 repository:
-  path: github.com/percona/proxysql_exporter
+  path: github.com/tavyc/proxysql_exporter
 build:
   flags: -v -a -tags netgo
   ldflags: |
